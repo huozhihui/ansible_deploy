@@ -1,0 +1,9 @@
+---
+  - name: Cancel mount directory "{{ share_dir }}"
+    lineinfile:
+      path: /etc/fstab 
+      regexp: '^{{ nfs_server_host }}:{{ share_dir }}'
+      state: absent
+
+  - mount: path="{{ share_dir }}" state=unmounted
+    ignore_errors: True

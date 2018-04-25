@@ -1,0 +1,50 @@
+---
+  - name: Install rpcbind ypbind and yp-tools packages
+    yum: name={{ item }} state=present
+    with_items:
+      - rpcbind
+      - ypbind
+      - yp-tools
+    tags:
+      - step1
+
+  - name: Configure nis domainname
+    lineinfile:
+      path: /etc/sysconfig/network
+      regexp: '^NISDOMAIN='
+      line: "NISDOMAIN={{ domain_name }}"
+    tags:
+      - step2
+
+  - shell: "domainname {{ domain_name }}" 
+    tags:
+      - step3
+
+  - name: Configure nis domainname boot up
+    lineinfile:
+      path: /etc/rc.d/rc.local
+      regexp: '^/bin/nisdomainname'
+      line: "/bin/nisdomainname {{ domain_name }}"
+    tags:
+      - step3
+
+  - name: Push the configuration files and startup the rpcbind and ypbind services
+    template: src={{ item.name }} dest={{ item.path }}
+    with_items:
+      - {name: 'nsswitch.conf', path: '/etc/nsswitch.conf'}
+      - {name: 'yp.conf', path: '/etc/yp.conf'}
+      - {name: 'authconfig', path: '/etc/sysconfig/authconfig'}
+      - {name: 'system-auth', path: '/etc/pam.d/system-auth'}
+    notify:
+      - restart rpcbind
+      - restart ypbind
+    tags:
+      - step4
+
+  - name: Configure the service ypbind boot up
+    service: name={{ item }} enabled=yes
+    with_items:
+      - ypbind
+    tags:
+      - step5
+

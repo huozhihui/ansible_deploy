@@ -1,0 +1,5 @@
+---
+  - name: config yum source 
+    get_url:
+      url: "{{ repo }}"
+      dest: /etc/yum.repos.d/

@@ -1,0 +1,7 @@
+---
+sge_package: sge.2011p1.tar.gz 
+sge_root: "{{ sge_install_dir }}/{{ sge_root_name }}"
+rc_path: "/etc/rc.d/init.d/sgemaster.{{ sge_cluster_name }}"
+K03_sgemaster_path: /etc/rc.d/rc3.d/K03sgemaster.{{ sge_cluster_name }}
+S95_sgemaster_path: /etc/rc.d/rc3.d/S95sgemaster.{{ sge_cluster_name }}
+

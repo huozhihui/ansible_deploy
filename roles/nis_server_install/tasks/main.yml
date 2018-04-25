@@ -1,0 +1,56 @@
+---
+  - name: Install rpcbind ypserv ypbind and yp-tools packages
+    yum: name={{ item }} state=present
+    with_items:
+      - rpcbind
+      - ypserv
+      - ypbind
+      - yp-tools
+    tags:
+      - step1
+
+  - name: Configure nis domainname
+    lineinfile:
+      path: /etc/sysconfig/network
+      regexp: '^{{ item.key }}'
+      line: "{{ item.key }}{{ item.value }}"
+    with_items:
+      - {key: 'NISDOMAIN=', value: "{{ domain_name }}"}
+      - {key: 'YPSERV_ARGS=', value: '"-p {{ ypserv_port }}"'}
+    tags:
+      - step2
+
+  - shell: "domainname {{ domain_name }}" 
+    tags:
+      - step3
+
+  - name: Configure nis domainname boot up
+    lineinfile:
+      path: /etc/rc.d/rc.local
+      regexp: '^/bin/nisdomainname'
+      line: "/bin/nisdomainname {{ domain_name }}"
+    tags:
+      - step3
+
+  - name: Push the configuration files and startup the rpcbind and ypserv services
+    template: src={{ item.name }} dest={{ item.path }}
+    with_items:
+      - {name: 'ypserv.conf', path: '/etc/ypserv.conf'}
+    notify:
+      - restart rpcbind
+      - restart ypserv
+    tags:
+      - step4
+
+  - name: Update the database
+    shell: make -C /var/yp
+    tags:
+      - step5
+
+  - name: Configure the service ypserv boot up
+    service: name={{ item }} enabled=yes
+    with_items:
+      - ypserv
+    tags:
+      - step6
+

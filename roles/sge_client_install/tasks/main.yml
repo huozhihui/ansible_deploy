@@ -1,0 +1,32 @@
+---
+  - name: Push the sge installation package
+    unarchive:
+      src: /tmp/sge.tgz
+      dest: "{{ sge_install_dir }}"
+      owner: root
+      group: root
+    tags:
+      - step1
+
+  - name: Configure the environment variables
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      line: "source {{ sge_root }}/default/common/settings.sh"
+
+  - shell: source ~/.bashrc
+
+  - name: Install the sge clients, please wait......
+    shell: ./inst_sge -x -auto "{{ sge_root }}"/sge_auto_install.conf
+    args:
+      chdir: "{{ sge_root }}"
+
+  - name: Installation completed, configure the sge_master service boot up
+    shell: cp "{{ sge_root }}/default/common/sgeexecd" "{{ rc_path }}"
+    ignore_errors: True
+
+  - file: src="{{ rc_path }}" dest="{{ item }}" state=link
+    ignore_errors: True
+    with_items:
+      - "{{ K03_sgeexecd_path }}"
+      - "{{ S95_sgeexecd_path }}"

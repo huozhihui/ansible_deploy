@@ -1,0 +1,8 @@
+---
+  - name: 取消共享目录："{{ share_dir }}"
+    lineinfile:
+      path: /etc/exports 
+      regexp: "^{{ share_dir }}"
+      state: absent
+
+  - shell: exportfs -r

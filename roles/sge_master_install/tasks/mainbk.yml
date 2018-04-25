@@ -1,0 +1,9 @@
+---
+  - debug: msg="{{ sge_package }}"
+  - debug: msg="{{ sge_install_dir }}"
+  - shell: echo "{{ sge_install_dir }}"
+  - debug: msg="{{ sge_root }}"
+  - debug: msg="{{ sge_admin_user }}"
+  - debug: msg="{{ sge_master_host }}"
+  - debug: msg="{{ sge_execd_hosts }}"
+  

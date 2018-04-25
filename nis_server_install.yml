@@ -1,0 +1,5 @@
+- hosts: nis_server_install
+  remote_user: root
+  gather_facts: False
+  roles:
+    - nis_server_install

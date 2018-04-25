@@ -1,0 +1,8 @@
+- hosts: sge_master_install 
+  remote_user: root
+  gather_facts: False
+  roles:
+    - generate_sshkey
+    - repo_config
+    - sge_before_install
+    - sge_master_install

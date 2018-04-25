@@ -1,0 +1,17 @@
+---
+  - name: Configure the environment variables
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      line: "source {{ sge_root }}/default/common/settings.sh"
+
+  - shell: source ~/.bashrc
+
+  - name: Add the compute node to the sge master
+    shell: "qconf -ah {{ sge_execd_host_list }}"
+
+  - name: Compress sge root path to /tmp
+    archive: path="{{ sge_root }}" dest=/tmp/sge.tgz
+
+  - name: "Get sge compress file to local /tmp path"
+    fetch: src="/tmp/sge.tgz" dest="/tmp/" flat=yes

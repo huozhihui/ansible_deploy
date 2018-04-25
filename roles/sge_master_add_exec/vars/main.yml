@@ -1,0 +1,5 @@
+---
+#rc_path: "/etc/rc.d/init.d/sgeexecd.{{ sge_cluster_name }}"
+sge_root: "{{ sge_install_dir }}/{{ sge_root_name }}"
+#K03_sgeexecd_path: /etc/rc.d/rc3.d/K03sgeexecd.{{ sge_cluster_name }}
+#S95_sgeexecd_path: /etc/rc.d/rc3.d/S95sgeexecd.{{ sge_cluster_name }}

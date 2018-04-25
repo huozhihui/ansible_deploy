@@ -1,0 +1,6 @@
+- hosts: sge_client_uninstall
+  remote_user: root
+  gather_facts: False
+  roles:
+    - sge_client_uninstall
+    - sge_before_uninstall

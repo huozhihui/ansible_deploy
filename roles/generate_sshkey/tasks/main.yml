@@ -1,0 +1,16 @@
+---
+  - name: verify the ssh-key exists
+    command: ls ~/.ssh/id_rsa.pub
+    ignore_errors: True
+    register: result
+
+  - name: generate the ssh-key
+    shell: ssh-keygen -t rsa -f ~/.ssh/id_rsa -N '' 
+    register: key_pair 
+    when: result|failed
+
+  - shell: echo "SSH key exist!"
+    register: key_pair 
+    when: result|succeeded
+
+    #- debug: msg="{{ key_pair.stdout }}"

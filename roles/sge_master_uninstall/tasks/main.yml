@@ -1,0 +1,21 @@
+---
+  - name: Uninstall the sge master, please wait......
+    command: ./inst_sge -um -auto "{{ sge_root }}"/sge_auto_install.conf
+    args:
+      chdir: "{{ sge_root }}"
+
+  - name: Remove the scripts of boot up
+    file: path="{{ item }}" state=absent
+    with_items:
+      - "{{ rc_path }}"
+      - "{{ K03_sgemaster_path }}"
+      - "{{ S95_sgemaster_path }}"
+    
+  - name: Remove the environment variables setting
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^source /opt/sge/default/common/settings'
+      state: absent
+
+  - name: Remove the sge root directory
+    file: path="{{ sge_root }}" state=absent

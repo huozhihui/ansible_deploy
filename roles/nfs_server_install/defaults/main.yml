@@ -1,0 +1,1 @@
+insert_line: "{{ share_dir }} {{ share_ip_address }}({{ share_mode}})"

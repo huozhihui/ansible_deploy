@@ -1,0 +1,32 @@
+---
+  - name: Install nfs-utils and rpcbind packages
+    yum: name={{ item }} state=present
+    with_items:
+      - nfs-utils 
+      - rpcbind
+    tags:
+      - step1
+
+  - name: Modify the config file /etc/exports
+    lineinfile:
+      path: /etc/exports
+      regexp: "^{{ share_dir }}"
+      line: "{{ insert_line }}"
+    tags:
+      - step2
+
+  - name: Make the configuration take effect
+    shell: exportfs -r
+    notify:
+      - restart rpcbind
+      - restart nfs
+    tags:
+      - step3 
+
+  - name: Configuration services rpcbind and nfs boot up
+    service: name={{ item }} enabled=yes
+    with_items:
+      - rpcbind
+      - nfs
+    tags:
+      - step4

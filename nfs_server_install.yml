@@ -1,0 +1,5 @@
+- hosts: nfs_server_install
+  remote_user: root
+  gather_facts: False
+  roles:
+    - nfs_server_install

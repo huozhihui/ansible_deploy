@@ -1,0 +1,32 @@
+---
+  - name: Push the sge installation package
+    unarchive:
+      src: "{{ sge_package }}"
+      dest: "{{ sge_install_dir }}"
+      owner: root
+      group: root
+
+  - name: Push the sge installation configuration file
+    template: src=sge_auto_install.conf dest={{ sge_root }}
+
+  - name: Install the sge master, please wait......
+    shell: ./inst_sge -m -auto "{{ sge_root }}"/sge_auto_install.conf
+    args:
+      chdir: "{{ sge_root }}"
+
+  - name: Installation completed, configure the sge_master service boot up
+    shell: cp "{{ sge_root }}/default/common/sgemaster" "{{ rc_path }}"
+
+  - file: src="{{ rc_path }}" dest="{{ item }}" state=link
+    with_items:
+      - "{{ K03_sgemaster_path }}"
+      - "{{ S95_sgemaster_path }}"
+
+  - name: Configure the environment variables
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      line: "source {{ sge_root }}/default/common/settings.sh"
+
+  # 使环境变量生效, 不可删除
+  - shell: source ~/.bashrc

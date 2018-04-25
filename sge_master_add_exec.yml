@@ -1,0 +1,6 @@
+- hosts: sge_master_add_exec
+  remote_user: root
+  gather_facts: False
+  roles:
+    - sge_before_install
+    - sge_master_add_exec

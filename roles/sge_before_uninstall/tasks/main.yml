@@ -1,0 +1,11 @@
+---
+  - name: configuration the /etc/hosts file
+    lineinfile:
+      path: /etc/hosts
+      regexp: "^{{item.ip}}"
+      state: absent
+    with_items:
+      - "{{ etc_hosts }}"
+    tags:
+      - step1
+  

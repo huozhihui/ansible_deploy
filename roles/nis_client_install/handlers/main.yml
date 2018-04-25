@@ -1,0 +1,6 @@
+---
+  - name: restart rpcbind
+    service: name=rpcbind state=restarted
+
+  - name: restart ypbind
+    service: name=ypbind state=restarted

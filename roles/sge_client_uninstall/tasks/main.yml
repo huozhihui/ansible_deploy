@@ -1,0 +1,23 @@
+---
+#- name: 停止sge_execd服务
+#    shell: ps -ef | grep sge_exec | grep -v "grep" | awk '{print $2}' | xargs kill -9
+
+  - name: Uninstall the sge client, please wait......
+    command: ./inst_sge -ux -auto "{{ sge_root }}"/sge_auto_install.conf
+    args:
+      chdir: "{{ sge_root }}"
+
+  - name: Remove the scripts of boot up
+    file: path="{{ item }}" state=absent
+    with_items:
+      - "{{ rc_path }}"
+      - "{{ K03_sgeexecd_path }}"
+      - "{{ S95_sgeexecd_path }}"
+    
+  - name: Remove the environment variables setting
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      state: absent
+
+  - shell: source ~/.bashrc
