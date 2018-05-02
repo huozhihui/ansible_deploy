@@ -2,7 +2,7 @@
 10.61.104.25 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 
 [sge_client_install]
-10.61.104.21 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
+#10.61.104.21 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 10.61.104.15 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 #10.61.104.15 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 #10.61.104.21 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
@@ -12,7 +12,8 @@
 #10.61.104.21 ansible_ssh_user=root
 #10.61.104.20 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 [test]
-#10.61.104.20 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
+#10.42.12.147 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
+10.61.104.20 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 #10.61.104.22 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 #10.61.104.23 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 #10.61.104.15 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22

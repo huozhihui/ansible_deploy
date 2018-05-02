@@ -11,6 +11,8 @@
 
   - name: Install the sge master, please wait......
     shell: ./inst_sge -m -auto "{{ sge_root }}"/sge_auto_install.conf
+    async: 300
+    poll: 3
     args:
       chdir: "{{ sge_root }}"
 

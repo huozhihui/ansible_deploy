@@ -18,6 +18,8 @@
 
   - name: Install the sge clients, please wait......
     shell: ./inst_sge -x -auto "{{ sge_root }}"/sge_auto_install.conf
+    async: 300
+    poll: 3
     args:
       chdir: "{{ sge_root }}"
 
