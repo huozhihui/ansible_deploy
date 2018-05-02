@@ -14,8 +14,10 @@
   - name: Remove the environment variables setting
     lineinfile:
       path: ~/.bashrc
-      regexp: '^source /opt/sge/default/common/settings'
+      regexp: "^source {{ sge_root }}/default/common/settings"
       state: absent
+    tags:
+      - step4
 
   - name: Remove the sge root directory
     file: path="{{ sge_root }}" state=absent
