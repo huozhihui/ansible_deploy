@@ -2,9 +2,9 @@
 # before_install----------------------------------------------------
 # 配置/etc/hosts用到, required
 etc_hosts:
-  - {ip: 192.168.0.5, hostname: nis-sge-server}
-  - {ip: 192.168.0.10, hostname: test-sge-client-1}
-  - {ip: 192.168.0.15, hostname: test-sge-client-2}
+  - {ip: 192.168.1.9, hostname: sge-master}
+  - {ip: 192.168.1.13, hostname: sge-client-1}
+  - {ip: 192.168.1.12, hostname: sge-client-2}
 
 # 公共参数----------------------------------------------------------
 # sge根目录、集群名称、管理员账号, required
@@ -14,7 +14,11 @@ sge_cluster_name: rzl
 sge_admin_user: root
 
 # 配置模版用到，(当增加计算节点时，qconf -ah host1 host2 host3)
-sge_execd_host_list: test-sge-client-1,test-sge-client-2
+# sge_master_add_exec,将计算节点增加到队列的模版文件中用到
+sge_execd_host_list: sge-client-1
+
+# sge_master_add_exec,增加计算节点时，若队列参数存在则将计算节点增加到队列
+queue_name: "abc"
 
 # SGE CLIENT----------------------------------------------------------
 # required

@@ -2,7 +2,6 @@
   remote_user: root
   gather_facts: False
   roles:
-    - generate_sshkey
-    - repo_config
+    - { role: repo_config, when: repo is defined }
     - sge_before_install
     - sge_client_install

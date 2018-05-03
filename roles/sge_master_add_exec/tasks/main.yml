@@ -2,13 +2,36 @@
   - name: Configure the environment variables
     lineinfile:
       path: ~/.bashrc
-      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      regexp: "^source {{ sge_root }}/default/common/settings"
       line: "source {{ sge_root }}/default/common/settings.sh"
 
   - shell: source ~/.bashrc
 
   - name: Add the compute node to the sge master
     shell: "qconf -ah {{ sge_execd_host_list }}"
+
+  - name: Valid queue name exists
+    shell: "qconf -sql | grep {{ queue_name }} | wc -l"
+    register: value
+    when: queue_name != ""
+    tags:
+      - step5
+
+  - name: Push queue template if specify queue not exists
+    template: src="add_queue.conf" dest=/tmp
+    when: 
+      - queue_name != ""
+      - value.stdout == "0" 
+    tags:
+      - step5
+
+  - name: Create queue if specify queue not exists
+    shell: qconf -Aq /tmp/add_queue.conf
+    when: 
+      - queue_name != ""
+      - value.stdout == "0" 
+    tags:
+      - step5
 
   - name: Compress sge root path to /tmp
     archive: path="{{ sge_root }}" dest=/tmp/sge.tgz

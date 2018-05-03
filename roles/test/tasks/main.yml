@@ -3,16 +3,15 @@
     shell: echo "{{ sge_root }}"
 
   - name: "sleep"
-    shell: sleep 10000
+    shell: sleep 1
     #async: 300 
     #poll: 3
 
   - name: "wei tuo"
     shell: hostname
     register: result
-    delegate_to: 10.61.104.15
+    delegate_to: 10.61.104.21
 
   - debug: msg="{{ result }}"
-    #- shell: echo "{{ sge_root2 }}"
 
 

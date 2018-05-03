@@ -11,7 +11,7 @@
   - name: Configure the environment variables
     lineinfile:
       path: ~/.bashrc
-      regexp: '^source "{{ sge_root }}"/default/common/settings'
+      regexp: "^source {{ sge_root }}/default/common/settings"
       line: "source {{ sge_root }}/default/common/settings.sh"
 
   - shell: source ~/.bashrc
