@@ -1,3 +1,6 @@
+[nfs_server_install]
+10.42.12.156 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
+
 [sge_master_add_exec]
 #10.61.104.25 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22
 10.42.12.147 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=root ansible_ssh_port=22

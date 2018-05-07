@@ -2,5 +2,5 @@
  - name: restart rpcbind
    service: name=rpcbind state=restarted
 
- - name: restart nfs
-   service: name=nfs state=restarted
+ - name: restart nfs-server
+   service: name=nfs-server state=restarted
