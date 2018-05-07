@@ -1,0 +1,5 @@
+- hosts: repo_config
+  remote_user: root
+  gather_facts: False
+  roles:
+    - repo_config

@@ -19,7 +19,7 @@
     shell: exportfs -r
     notify:
       - restart rpcbind
-      - restart nfs
+      - restart nfs-server
     tags:
       - step3 
 
@@ -27,6 +27,6 @@
     service: name={{ item }} enabled=yes
     with_items:
       - rpcbind
-      - nfs
+      - nfs-server
     tags:
       - step4
