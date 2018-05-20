@@ -1,7 +1,7 @@
 - hosts: sge_client_install
   remote_user: root
-  gather_facts: False
+  gather_facts: True
   roles:
     - { role: repo_config, when: repo is defined }
-    - sge_before_install
+    #- sge_before_install
     - sge_client_install

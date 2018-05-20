@@ -2,11 +2,10 @@
   - name: configuration the /etc/hosts file
     lineinfile:
       path: /etc/hosts
-      regexp: "^{{item.ip}}"
+      regexp: "^{{item.ip}} {{item.hostname}}"
       line: "{{item.ip}} {{item.hostname}}"
     with_items:
       - "{{ etc_hosts }}"
     tags:
       - step1
 
-  

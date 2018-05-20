@@ -7,6 +7,24 @@
       group: root
     tags:
       - step1
+      
+  - name: Get sge master hostname
+    shell: "cat {{ sge_root }}/default/common/act_qmaster"
+    register: sge_master_hostname
+
+  - name: Configure sge master to /etc/hosts
+    lineinfile:
+      path: /etc/hosts 
+      regexp: "^{{sge_master_ip}} {{ sge_master_hostname.stdout }}"
+      line: "{{sge_master_ip}} {{ sge_master_hostname.stdout }}"
+
+  - name: Set hostname
+    hostname: name="{{ item.hostname }}"
+    when: ansible_default_ipv4.address == item.ip 
+    with_items:
+      - "{{ etc_hosts }}"
+    tags:
+      - step2
 
   - name: Configure the environment variables
     lineinfile:
