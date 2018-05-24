@@ -3,5 +3,4 @@
   gather_facts: False
   roles:
     - { role: repo_config, when: repo is defined }
-    #- sge_before_install
     - sge_master_install

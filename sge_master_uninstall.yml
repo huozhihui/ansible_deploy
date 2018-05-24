@@ -3,4 +3,3 @@
   gather_facts: False
   roles:
     - sge_master_uninstall
-    - sge_before_uninstall
