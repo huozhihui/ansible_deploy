@@ -4,14 +4,21 @@
     tags:
       - step1
 
+  - name: Validation the nfs server 
+    shell: "showmount -e {{ nfs_server_host }}"
+    async: 20
+    poll: 2
+    tags:
+      - step2
+
   - name: Temporary mount directory "{{ share_dir }}"
     shell: mount -t nfs {{ nfs_server_host }}:{{ share_dir }} {{ share_dir }} -o proto=tcp -o nolock warn=no
     ignore_errors: True
     tags:
-      - step2
+      - step3
 
   - name: Set permanent mount, Configure the file /etc/fstab
     mount: path={{ share_dir }} src={{ nfs_server_host }}:{{ share_dir }} fstype=nfs state=present
     tags:
-      - step3
+      - step4
 
