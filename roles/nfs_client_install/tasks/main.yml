@@ -1,6 +1,6 @@
 ---
-  - name: Make dir "{{ share_dir }}" 
-    file: name={{ share_dir }} state=directory 
+  - name: Make dir "{{ mount_point }}" 
+    file: name={{ mount_point }} state=directory 
     tags:
       - step1
 
@@ -12,13 +12,13 @@
       - step2
 
   - name: Temporary mount directory "{{ share_dir }}"
-    shell: mount -t nfs {{ nfs_server_host }}:{{ share_dir }} {{ share_dir }} -o proto=tcp -o nolock warn=no
+    shell: mount -t nfs {{ nfs_server_host }}:{{ share_dir }} {{ mount_point }} -o proto=tcp -o nolock warn=no
     ignore_errors: True
     tags:
       - step3
 
   - name: Set permanent mount, Configure the file /etc/fstab
-    mount: path={{ share_dir }} src={{ nfs_server_host }}:{{ share_dir }} fstype=nfs state=present
+    mount: path={{ mount_point }} src={{ nfs_server_host }}:{{ share_dir }} fstype=nfs state=present
     tags:
       - step4
 
