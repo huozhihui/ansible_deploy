@@ -1,4 +1,18 @@
 ---
+  - name: Set hostname
+    hostname: name="{{ item.hostname }}"
+    with_items:
+      - "{{ etc_hosts }}"
+    tags:
+      - step2
+
+  - name: Write hostname to /etc/hostname
+    shell: echo "{{item.hostname}}" > /etc/hostname
+    with_items:
+      - "{{ etc_hosts }}"
+    tags:
+      - step2
+
   - name: Push the sge installation package
     unarchive:
       src: "{{ sge_package }}"
