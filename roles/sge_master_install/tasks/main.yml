@@ -1,4 +1,15 @@
 ---
+  - name: Add sge master ip to local /etc/hosts
+    local_action: 
+      module: lineinfile
+      path: /etc/hosts
+      regexp: "^{{ item.ip }}"
+      line: "{{ item.ip }} {{ item.hostname }}"
+    with_items:
+      - "{{ etc_hosts }}"
+    tags:
+      - step1
+
   - name: Set hostname
     hostname: name="{{ item.hostname }}"
     with_items:

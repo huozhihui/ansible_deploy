@@ -7,5 +7,5 @@
     with_items:
       - "{{ etc_hosts }}"
     tags:
-      - step1
+      - step2
 

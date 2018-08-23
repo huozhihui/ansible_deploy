@@ -1,0 +1,14 @@
+---
+# sge根目录，必要参数
+sge_install_dir: /opt
+sge_root_name: "sge"
+
+# 集群名称，必要参数
+sge_cluster_name: rzl
+
+# 管理员账号，必要参数
+sge_admin_user: root
+
+# 写入/etc/hosts文件，必要参数
+etc_hosts:
+  - {ip: 10.10.10.21, hostname: sge-master}
