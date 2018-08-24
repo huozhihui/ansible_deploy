@@ -26,17 +26,24 @@
       - step5
 
   - name: Create queue if specify queue not exists
-    shell: qconf -Aq /tmp/add_queue.conf
+    shell: sleep 2 && qconf -Aq /tmp/add_queue.conf
     when: 
       - queue_name != ""
       - value.stdout == "0" 
     tags:
       - step5
 
-  - name: Add compute node to queue
+  - name: Add compute node to specify queue
     shell: "qconf -aattr queue hostlist {{ sge_execd_host_list }} {{ queue_name }}"
     when: 
       - queue_name != ""
+      - value.stdout != "0" 
+    tags:
+      - step5
+
+  - name: Add compute node to all.q queue
+    shell: "qconf -aattr queue hostlist {{ sge_execd_host_list }} all.q"
+    when: 
       - value.stdout != "0" 
     tags:
       - step5
