@@ -2,9 +2,9 @@
 # before_install----------------------------------------------------
 # 配置/etc/hosts用到, required
 etc_hosts:
-  - {ip: 192.168.1.9, hostname: sge-master}
+  #- {ip: 192.168.1.9, hostname: sge-master}
   - {ip: 192.168.1.13, hostname: sge-client-1}
-  - {ip: 192.168.1.12, hostname: sge-client-2}
+  - {ip: 192.168.0.21, hostname: sge-client-2}
 
 # 公共参数----------------------------------------------------------
 # sge根目录、集群名称、管理员账号, required

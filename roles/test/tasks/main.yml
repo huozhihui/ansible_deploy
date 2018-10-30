@@ -1,17 +1,10 @@
 ---
-  - name: Install the sge master, please wait......
-    shell: echo "{{ sge_root }}"
+- name: "test shell"
+  shell: |
+    echo "{{inventory_hostname}}" >> ~/temp/hello.txt
+  register: res
+  delegate_to: localhost
+  run_once: true
 
-  - name: "sleep"
-    shell: sleep 1
-    #async: 300 
-    #poll: 3
-
-  - name: "wei tuo"
-    shell: hostname
-    register: result
-    delegate_to: 10.61.104.21
-
-  - debug: msg="{{ result }}"
-
+  #- debug: msg={{ res.stdout }}
 

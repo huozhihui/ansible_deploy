@@ -1,0 +1,30 @@
+---
+- name: test shell
+  shell: |
+    echo "hello"
+    echo "huo"
+    tags:
+      step1
+
+      - name: Get current ip
+        debug: msg="{{ansible_default_ipv4.address}}"
+        tags:
+          - step2
+
+          - name: "sleep"
+            shell: sleep 1
+            #async: 300 
+            #poll: 3
+            tags:
+              - step3
+
+              - name: "wei tuo"
+                shell: hostname
+                register: result
+                delegate_to: 10.61.104.21
+                tags:
+                  - step4
+
+                  - debug: msg="{{ result }}"
+                  - debug: msg="{{ansible_default_ipv4.address}}"
+

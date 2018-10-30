@@ -11,4 +11,6 @@ share_mode: ro,no_root_squash,no_all_squash,sync,anonuid=501,anongid=501
 
 # NFS CLIENT----------------------------------------------------------
 # required
-nfs_server_host: 192.168.0.5
+nfs_server_host: 192.168.1.10
+#nfs_server_host: 192.168.0.9
+mount_point: /opt/aaa
